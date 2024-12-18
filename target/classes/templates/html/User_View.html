@@ -1,52 +1,111 @@
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-   <head>
-      <meta charset="utf-8">
-      <title>Menu</title>
- 
- <!-- Include CSS File -->
- 
-      <link th:href="@{/css/menu_style.css}" rel="stylesheet">
-      
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
- 
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
-  
-   <body>   
-      <nav>
-         <div class="logo">
-            Online Book Store
-         </div>
-         <label for="click" class="menu-btn">
-         <i class="fas fa-bars"></i>
-         </label>
-         <ul>
-            <li><a class="active" href="/User_Home">Home</a></li>
-            <li><a href="/User_Books">Review Book</a></li>
-            <li><a href="/User_Buy_Book">Buy Book</a></li>
-            <li><a href="/Order_Details">Order Details</a></li>
-            <li><a href="#"><span th:text="${User}"></span></a></li>
-            <li><a href="/">Logout</a></li>
-         </ul>
-      </nav>
+<head>
+   <meta charset="utf-8">
+   <title>Menu</title>
 
-      
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-<div th:if="${PrintSwal == 'UserLogin'}">    
-<script>swal("User Login Sucessfully");</script>
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      body {
+         background-color: #f9f9f9;
+      }
+
+      nav {
+         background-color: #333;
+         padding: 15px 20px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+         color: #fff;
+         font-size: 24px;
+         font-weight: 600;
+      }
+
+      ul {
+         display: flex;
+         list-style: none;
+      }
+
+      ul li {
+         margin: 0 20px;
+      }
+
+      ul li a {
+         color: #fff;
+         text-decoration: none;
+         font-size: 16px;
+         font-weight: 500;
+         transition: color 0.3s ease;
+      }
+
+      ul li a:hover {
+         color: #ff6347;
+      }
+
+      /* Mobile menu */
+      @media (max-width: 768px) {
+         ul {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+         }
+
+         ul li {
+            margin: 15px 0;
+            text-align: center;
+         }
+      }
+
+      /* SweetAlert styling for success and error messages */
+      .swal2-popup {
+         font-family: 'Poppins', sans-serif;
+      }
+   </style>
+
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+
+<body>
+<nav>
+   <div class="logo">
+      Online Book Store
+   </div>
+   <ul>
+      <li><a class="active" href="/User_Home">Home</a></li>
+      <li><a href="/User_Books">Review Book</a></li>
+      <li><a href="/User_Buy_Book">Buy Book</a></li>
+      <li><a href="/Order_Details">Order Details</a></li>
+      <li><a href="#"><span th:text="${User}"></span></a></li>
+      <li><a href="/">Logout</a></li>
+   </ul>
+</nav>
+
+<div th:if="${PrintSwal == 'UserLogin'}">
+   <script>swal("User Login Successfully");</script>
 </div>
 
-<div th:if="${PrintSwal == 'Order_Details_Empty'} ">    
-<script>swal("Data Not Found");</script>
+<div th:if="${PrintSwal == 'Order_Details_Empty'}">
+   <script>swal("Data Not Found");</script>
 </div>
-
-
 
 </body>
-
-
-
-
 </html>

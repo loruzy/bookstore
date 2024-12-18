@@ -5,46 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Form</title>
   <link rel="stylesheet" th:href="@{/css/reg_style.css}">
-  <!-- Fontawesome CDN Link For Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    html, body {
+      display: grid;
+      height: 100vh;
+      width: 100%;
+      place-items: center;
+      background-color: #f2f2f2;
+    }
+    .container {
+      background: #fff;
+      max-width: 350px;
+      width: 100%;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .container .title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .input-box {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .input-box input, .input-box select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .input-box input:focus, .input-box select:focus {
+      border-color: #666;
+    }
+    .button input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #666;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .button input:hover {
+      background-color: #444;
+    }
+    .container .signup-link {
+      margin-top: 15px;
+      font-size: 14px;
+      text-align: center;
+    }
+    .container .signup-link a {
+      text-decoration: none;
+      color: #666;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .container .signup-link a:hover {
+      color: #333;
+    }
+  </style>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 
-<body style="background-color: #808080;">
-<form action="/User_Registration" method="post">
-  <h2>Registration Form</h2>
-  <div class="form-group fullname">
-    <label for="fullname">Full Name</label>
-    <input type="text" id="fullname" name="fullname" value="test acc" placeholder="Enter your full name">
+<body style="background-color: #f2f2f2;">
+<div class="container">
+  <form action="/User_Registration" method="post">
+    <div class="title">Registration</div>
+    <div class="input-box">
+      <input type="text" id="fullname" name="fullname" value="test acc" placeholder="Enter your full name">
+    </div>
+    <div class="input-box">
+      <input type="text" id="email" name="email" value="test@gmail.com" placeholder="Enter your email address">
+    </div>
+    <div class="input-box">
+      <input type="password" id="password" name="password" value="test" placeholder="Enter your password">
+      <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
+    </div>
+    <div class="input-box">
+      <input type="date" id="date" name="date" value="1999-12-01" placeholder="Select your date">
+    </div>
+    <div class="input-box">
+      <select id="gender" name="gender">
+        <option value="" selected disabled>Select your gender</option>
+        <option value="Male" selected>Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="button">
+      <input type="submit" value="Register">
+    </div>
+  </form>
+  <div class="signup-link">
+    <span>Already have an account? <a href="/Login">Login now</a></span>
   </div>
-  <div class="form-group email">
-    <label for="email">Email Address</label>
-    <input type="text" id="email" name="email" value="test@gmail.com" placeholder="Enter your email address">
-  </div>
-  <div class="form-group password">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" value="test" placeholder="Enter your password">
-    <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
-  </div>
-  <div class="form-group date">
-    <label for="date">Birth Date</label>
-    <input type="date" id="date" name="date" value="1999-12-01" placeholder="Select your date">
-  </div>
-  <div class="form-group gender">
-    <label for="gender">Gender</label>
-    <select id="gender" name="gender">
-      <option value="" selected disabled>Select your gender</option>
-      <option value="Male" selected>Male</option>
-      <option value="Female">Female</option>
-    </select>
-  </div>
-  <div class="form-group submit-btn">
-    <input type="submit" value="Submit">
-  </div>
-  <div>
-    <h3>Already have an account? <a href="/Login">Login now</a></h3>
-  </div>
-</form>
+</div>
 
 <div th:if="${PrintSwal == 'User_Exists'}">
   <script>swal("User Already Exists");</script>

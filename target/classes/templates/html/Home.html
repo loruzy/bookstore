@@ -1,28 +1,78 @@
 <html xmlns:th="https://www.thymeleaf.org">
-   <head>
-      <meta charset="utf-8">
-      <title>Menu</title>
- 
- <!-- Include CSS File -->
-      <link th:href="@{/css/menu_style.css}" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
-   
-   <body>   
-      <nav>
-         <div class="logo">
-            Online Book Store
-         </div>
-         <label for="click" class="menu-btn">
-         <i class="fas fa-bars"></i>
-         </label>
-         <ul>
-            <li><a class="active" href="/">Home</a></li>
-            <li><a href="/Login">Admin</a></li>
-            <li><a href="/User">User</a></li>
-         </ul>
-      </nav>
+<head>
+   <meta charset="utf-8">
+   <title>Online Book Store</title>
+   <link th:href="@{/css/menu_style.css}" rel="stylesheet">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+      body {
+         margin: 0;
+         font-family: Arial, sans-serif;
+         background-color: #f4f4f9;
+      }
+      nav {
+         background-color: #333;
+         color: white;
+         padding: 10px 20px;
+         display: flex;
+         justify-content: space-between;
+      }
+      nav .logo { font-size: 1.5em; }
+      nav ul { list-style: none; display: flex; }
+      nav ul li { margin: 0 10px; }
+      nav ul li a { color: white; text-decoration: none; padding: 5px 10px; border-radius: 5px; }
+      nav ul li a:hover { background-color: #575757; }
+      .banner {
+         text-align: center;
+         padding: 50px;
+         background: #fff;
+         margin-bottom: 20px;
+      }
+      .banner h1 { font-size: 2.5em; color: #333; }
+      .book-container {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 20px;
+         justify-content: center;
+         padding: 20px;
+      }
+      .book-card {
+         background: white;
+         padding: 10px;
+         text-align: center;
+         width: 200px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+         border-radius: 5px;
+      }
+      .book-card img {
+         max-width: 100%;
+         height: auto;
+         border-radius: 5px;
+         margin-bottom: 10px;
+      }
+      .book-card h3 { font-size: 1.2em; color: #333; }
+   </style>
+</head>
+<body>
+<nav>
+   <div class="logo">Online Book Store</div>
+   <ul>
+      <li><a class="active" href="/">Home</a></li>
+      <li><a href="/Login">Login</a></li>
+   </ul>
+</nav>
+
+<div class="banner">
+   <h1>Welcome to the Online Book Store</h1>
+   <p>Explore our collection of amazing books!</p>
+</div>
+
+<!-- Секция трендовых книг -->
+<div class="book-container" th:if="${not #lists.isEmpty(trendingBooks)}">
+   <div class="book-card" th:each="book : ${trendingBooks}">
+      <img th:src="${book.imagePath}" alt="Book Image">
+      <h3 th:text="${book.Book_title}"></h3>
+   </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,262 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+
+    <link th:href="@{/css/menu_style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a.active, nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Стили для пагинации */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .pagination-btn {
+            width: 150px;
+            height: 50px;
+            margin: 0 10px;
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .pagination-btn:hover {
+            background-color: #575757;
+        }
+
+        .pagination span {
+            font-size: 16px;
+            margin: 0 10px;
+            color: #333;
+        }
+
+        /* Стили для формы */
+        .form-container {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border 0.3s ease-in-out;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus {
+            outline: none;
+
+        }
+
+        .update-btn {
+            display: block;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            font-size: 1em;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .update-btn:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="logo">Online Book Store</div>
+    <ul>
+        <li><a href="/Admin_Home">Home</a></li>
+        <li><a href="/Book_Management">Book Management</a></li>
+        <li><a class="active" href="/Book_Details">Book Details</a></li>
+        <li><a href="/User_Details">User Details</a></li>
+        <li><a href="/Admin_Order_Details">Order Details</a></li>
+        <li><a href="#">Admin</a></li>
+        <li><a href="/">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Book Details</h1>
+
+    <div class="form-container">
+        <h2>Books List</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Reviews</th>
+                <th>Rating</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="BookArray : ${BookObject}">
+                <td th:text="${BookArray.getBook_title()}"></td>
+                <td th:text="${BookArray.getAuthor()}"></td>
+                <td th:text="${BookArray.getReviews()}"></td>
+                <td th:text="${BookArray.getRate()}"></td>
+                <td th:text="${BookArray.getPrice()}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button class="pagination-btn" th:if="${currentPage > 0}"
+                    th:onclick="|location.href='?page=${currentPage - 1}'|">Prev</button>
+            <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
+            <button class="pagination-btn" th:if="${currentPage < totalPages - 1}"
+                    th:onclick="|location.href='?page=${currentPage + 1}'|">Next</button>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Update Book Information</h2>
+        <form action="/book_Update" method="post" onsubmit="return validateUpdateForm()" id="Form_Update">
+            <label for="Book_title">Book Title</label>
+            <input type="text" id="Book_title" name="Book_title" placeholder="Book title" required>
+            <label for="Author">Author</label>
+            <input type="text" id="Author" name="Author" placeholder="Author">
+            <label for="Reviews">Reviews</label>
+            <input type="text" id="Reviews" name="Reviews" placeholder="Reviews">
+            <label for="Price">Price</label>
+            <input type="text" id="Price" name="Price" placeholder="Price">
+            <label for="rate" class="rating-label">Rating</label>
+            <select name="rate" id="rate">
+                <option value="1">1 Star</option>
+                <option value="2">2 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+            <button type="submit" class="update-btn">Update Book</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

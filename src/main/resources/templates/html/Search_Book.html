@@ -1,0 +1,133 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Rate Book</title>
+
+    <!-- Include CSS File -->
+    <link th:href="@{/css/menu_style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            font-size: 1.5em;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav ul li a.active, nav ul li a:hover {
+            background-color: #575757;
+        }
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        .form-control {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        select {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="logo">
+        Online Book Store
+    </div>
+    <ul>
+        <li><a href="/User_Home">Home</a></li>
+        <li><a href="/User_Books">Review Book</a></li>
+        <li><a href="/User_Buy_Book">Buy Book</a></li>
+        <li><a href="/Order_Details">Order Details</a></li>
+        <li><a href="#"><span th:text="${User}"></span></a></li>
+        <li><a href="/">Logout</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1>Rate & Review Book</h1>
+    <form action="/user_Rate_Book" method="post" onsubmit="return validateForm()" id="Form_Rate">
+        <input type="text" class="form-control" name="Book_title" placeholder="Book title">
+        <input type="text" class="form-control" name="Reviews" placeholder="Your review">
+        <select name="rate">
+            <option value="1">1 Star</option>
+            <option value="2">2 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="5">5 Stars</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<script>
+    function validateForm() {
+        let title = document.forms["Form_Rate"]["Book_title"].value;
+        if (title.trim() === "") {
+            alert("Book title must be filled out");
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

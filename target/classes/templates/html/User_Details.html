@@ -1,0 +1,127 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Menu</title>
+
+    <!-- Include CSS File -->
+    <link th:href="@{/css/menu_style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            font-size: 1.5em;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav ul li a.active, nav ul li a:hover {
+            background-color: #575757;
+        }
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="logo">
+        Online Book Store
+    </div>
+    <label for="click" class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul>
+        <li><a href="/Admin_Home">Home</a></li>
+        <li><a href="/Book_Management">Book Management</a></li>
+        <li><a href="/Book_Details">Book Details</a></li>
+        <li><a class="active" href="/User_Details">User Details</a></li>
+        <li><a href="/Admin_Order_Details">Order Details</a></li>
+        <li><a href="#">Admin</a></li>
+        <li><a href="/">Logout</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1>User Details</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Date of Birth</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="UserArray : ${UserObject}">
+            <td th:text="${UserArray.getFullname()}"></td>
+            <td th:text="${UserArray.getEmail()}"></td>
+            <td th:text="${UserArray.getPassword()}"></td>
+            <td th:text="${UserArray.getDate()}"></td>
+            <td th:text="${UserArray.getGender()}"></td>
+            <td>
+                <form th:action="@{/sendNewBooksNotification}" method="post">
+                    <input type="hidden" th:name="userEmail" th:value="${UserArray.getEmail()}"/>
+                    <button type="submit">Send Message</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

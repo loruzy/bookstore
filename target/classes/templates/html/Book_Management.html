@@ -1,0 +1,177 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Menu</title>
+
+    <!-- Include CSS File -->
+    <link th:href="@{/css/menu_style.css}" rel="stylesheet">
+    <link th:href="@{/css/button.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            font-size: 1.5em;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav ul li a.active, nav ul li a:hover {
+            background-color: #575757;
+        }
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            width: 400px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+        }
+        h2, h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        select, .form-control {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .delete-btn {
+            background-color: #ff4c4c;
+        }
+        .delete-btn:hover {
+            background-color: #e60000;
+        }
+        .heading {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #555;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+<nav>
+    <div class="logo">
+        Online Book Store
+    </div>
+    <label for="click" class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul>
+        <li><a href="/Admin_Home">Home</a></li>
+        <li><a class="active" href="/Book_Management">Book Management</a></li>
+        <li><a href="/Book_Details">Book Details</a></li>
+        <li><a href="/User_Details">User Details</a></li>
+        <li><a href="/Admin_Order_Details">Order Details</a></li>
+        <li><a href="#">Admin</a></li>
+        <li><a href="/">Logout</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1>Book Registration Form</h1>
+    <form class="form" action="/book_Add" method="post" onsubmit="return validateForm1()" id="Form_Add">
+        <input type="text" class="form-control" name="Book_title" placeholder="Book title" value="book1">
+        <input type="text" class="form-control" name="Author" placeholder="Author" value="some author">
+        <input type="text" class="form-control" name="Reviews" placeholder="Reviews" value="not bad">
+        <input type="text" class="form-control" name="Price" placeholder="Price" value="777">
+        <div>
+            <span class="heading">Rating</span>
+            <select name="rate">
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5" selected>5 Star</option>
+            </select>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div class="container">
+    <h1>Delete Book By Title</h1>
+    <form class="form" action="/book_Delete" method="post" onsubmit="return validateForm2()" id="Form_Delete">
+        <input type="text" class="form-control" name="Book_title" placeholder="Book title" value="book1">
+        <button type="submit" class="delete-btn">Delete</button>
+    </form>
+</div>
+<script>
+    function validateForm1() {
+        let b1 = document.forms["Form_Add"]["Book_title"].value;
+        let b2 = document.forms["Form_Add"]["Author"].value;
+        let b3 = document.forms["Form_Add"]["Reviews"].value;
+        let b4 = document.forms["Form_Add"]["Price"].value;
+        if (b1 == "" || b2 == "" || b3 == "" || b4 == "") {
+            swal("Please fill out all fields");
+            return false;
+        }
+    }
+    function validateForm2() {
+        let b1 = document.forms["Form_Delete"]["Book_title"].value;
+        if (b1 == "") {
+            swal("Book Title must be filled out");
+            return false;
+        }
+    }
+</script>
+<div th:if="${PrintSwal == 'Book_Exist'}">
+    <script>swal("Book Already Exists");</script>
+</div>
+<div th:if="${PrintSwal == 'Add_Sucess'}">
+    <script>swal("Book Registered Successfully");</script>
+</div>
+<div th:if="${PrintSwal == 'Delete_Sucess'}">
+    <script>swal("Book Deleted Successfully");</script>
+</div>
+<div th:if="${PrintSwal == 'Delete_Failed'}">
+    <script>swal("Sorry, Book Not Found");</script>
+</div>
+</body>
+</html>
